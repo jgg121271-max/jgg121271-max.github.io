@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal de proyectos de José Gregorio García - Alcaldía Santos Marquina">
+    <title>🏠 Portal de Proyectos | José Gregorio García</title>
+    <style>
+        :root {
+            --primary: #5a67d8;
+            --primary-dark: #434190;
+            --secondary: #764ba2;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border-radius: 16px;
+            --shadow: 0 10px 40px rgba(0,0,0,0.15);
+            --shadow-hover: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        header .role {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Intro */
+        .intro {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .intro h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            min-height: 220px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .project-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .project-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+        
+        .project-card .badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: var(--primary-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .project-card .link-text {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .project-card .link-text::after {
+            content: "→";
+            transition: transform 0.2s;
+        }
+        
+        .project-card:hover .link-text::after {
+            transform: translateX(5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6rem; }
+            header .subtitle { font-size: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <h1>🏠 Portal de Proyectos</h1>
+            <p class="subtitle">José Gregorio García Rodríguez</p>
+            <span class="role">Jefe de Personal • Alcaldía Santos Marquina</span>
+        </header>
+        
+        <!-- Introducción -->
+        <section class="intro">
+            <h2>📋 Bienvenido</h2>
+            <p>Este portal centraliza el acceso a los diferentes proyectos, recursos y herramientas desarrolladas para la gestión administrativa y de personal. Selecciona un proyecto para explorar su contenido.</p>
+        </section>
+        
+        <!-- Grid de Proyectos -->
+        <main class="projects-grid">
+            
+            <!-- Proyecto 1: Segmentación de Mercadeo -->
+            <a href="segmentacion-mercadeo-unellez/" class="project-card" target="_blank">
+                <span class="icon">🎯</span>
+                <span class="badge">Académico</span>
+                <h3>Segmentación de Mercadeo - UNELLEZ</h3>
+                <p>Módulo educativo con recursos, materiales y herramientas para el estudio de segmentación de mercados en el contexto universitario.</p>
+                <span class="link-text">Acceder al proyecto</span>
+            </a>
+            
+            <!-- Proyecto 2: Gestión de Personal -->
+            <a href="recursos-rrhh/" class="project-card" target="_blank">
+                <span class="icon">👥</span>
+                <span class="badge">Administrativo</span>
+                <h3>Gestión de Personal y Beneficios</h3>
+                <p>Plataforma para solicitudes de constancias, recibos de pago, vacaciones y beneficios laborales del personal municipal.</p>
+                <span class="link-text">Acceder al proyecto</span>
+            </a>
+            
+            <!-- Proyecto 3: Eventos Recreativos -->
+            <a href="eventos-municipio/" class="project-card" target="_blank">
+                <span class="icon">🎉</span>
+                <span class="badge">Social</span>
+                <h3>Eventos Recreativos Municipales</h3>
+                <p>Calendario, inscripciones y recursos para actividades recreativas dirigidas al personal y sus familiares.</p>
+                <span class="link-text">Acceder al proyecto</span>
+            </a>
+            
+            <!-- Proyecto 4: Plantillas y Formatos -->
+            <a href="plantillas-formatos/" class="project-card" target="_blank">
+                <span class="icon">📄</span>
+                <span class="badge">Recursos</span>
+                <h3>Plantillas y Formatos Oficiales</h3>
+                <p>Biblioteca de documentos, formatos descargables y guías para trámites administrativos estandarizados.</p>
+                <span class="link-text">Acceder al proyecto</span>
+            </a>
+            
+            <!-- Proyecto 5: Capacitación -->
+            <a href="capacitacion-personal/" class="project-card" target="_blank">
+                <span class="icon">🎓</span>
+                <span class="badge">Formación</span>
+                <h3>Programas de Capacitación</h3>
+                <p>Cronograma, materiales y registros de los programas de formación continua para el personal municipal.</p>
+                <span class="link-text">Acceder al proyecto</span>
+            </a>
+            
+            <!-- Proyecto 6: Nuevo Proyecto (Plantilla) -->
+            <a href="nuevo-proyecto/" class="project-card" target="_blank" style="border-style: dashed; justify-content: center; align-items: center; text-align: center;">
+                <span class="icon" style="font-size: 3rem;">➕</span>
+                <h3 style="color: var(--text-secondary);">Agregar Nuevo Proyecto</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0;">Copia esta tarjeta y personalízala para añadir más proyectos</p>
+            </a>
+            
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 • Alcaldía del Municipio Santos Marquina • Tabay, Mérida, Venezuela</p>
+            <p style="font-size: 0.85rem;">
+                Repositorio: 
+                <a href="https://github.com/jgg121271-max/jgg121271-max.github.io" target="_blank">
+                    jgg121271-max.github.io
+                </a>
+            </p>
+        </footer>
+        
+    </div>
+</body>
+</html>
