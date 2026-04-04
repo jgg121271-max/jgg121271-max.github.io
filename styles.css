@@ -1,0 +1,357 @@
+/* ===== VARIABLES Y CONFIGURACIÓN GENERAL ===== */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #3b82f6;
+    --accent-color: #8b5cf6;
+    --light-color: #f3f4f6;
+    --dark-color: #1f2937;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== ESTILOS PARA LAS SECCIONES (SLIDES) ===== */
+.slide {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 40px;
+    min-height: 80vh;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ENCABEZADO UNIVERSIDAD ===== */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 20px;
+}
+
+.university {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.campus {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    letter-spacing: 2px;
+}
+
+/* ===== TÍTULO PRINCIPAL ===== */
+.title-section {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== INFORMACIÓN DEL AUTOR ===== */
+.author-info {
+    background: var(--light-color);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.author-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.author-info strong {
+    color: var(--primary-color);
+}
+
+/* ===== BOTONES DE NAVEGACIÓN PRINCIPAL ===== */
+.menu-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border: none;
+    padding: 20px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    box-shadow: var(--shadow);
+}
+
+.nav-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* ===== ENCABEZADO DE LÁMINAS ===== */
+.slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.slide-header h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.back-btn {
+    background: linear-gradient(135deg, var(--accent-color), #6d28d9);
+    color: var(--white);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #6d28d9, #5b21b6);
+}
+
+/* ===== CAJA DE CONTENIDO ===== */
+.content-box {
+    background: var(--light-color);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid var(--secondary-color);
+}
+
+/* ===== DEFINICIÓN ===== */
+.definition {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--dark-color);
+    background: var(--white);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 6px solid var(--success-color);
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.concept-highlight {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    color: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 25px;
+}
+
+.concept-highlight h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.concept-highlight p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* ===== ÍTEMS DE PROPÓSITO E IMPORTANCIA ===== */
+.purpose-item,
+.importance-item,
+.criterion,
+.process-step {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 5px solid var(--secondary-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.purpose-item:hover,
+.importance-item:hover,
+.criterion:hover,
+.process-step:hover {
+    transform: translateX(10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.purpose-item h3,
+.importance-item h3,
+.criterion h3,
+.process-step h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.purpose-item p,
+.importance-item p,
+.criterion p,
+.process-step p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--dark-color);
+    text-align: justify;
+}
+
+/* ===== COLORES ESPECÍFICOS POR SECCIÓN ===== */
+#slide2 .purpose-item:nth-child(1) { border-left-color: var(--warning-color); }
+#slide2 .purpose-item:nth-child(2) { border-left-color: var(--success-color); }
+#slide2 .purpose-item:nth-child(3) { border-left-color: var(--accent-color); }
+#slide2 .purpose-item:nth-child(4) { border-left-color: var(--primary-color); }
+#slide2 .purpose-item:nth-child(5) { border-left-color: var(--danger-color); }
+
+#slide3 .importance-item:nth-child(1) { border-left-color: var(--warning-color); }
+#slide3 .importance-item:nth-child(2) { border-left-color: var(--success-color); }
+#slide3 .importance-item:nth-child(3) { border-left-color: var(--accent-color); }
+#slide3 .importance-item:nth-child(4) { border-left-color: var(--primary-color); }
+#slide3 .importance-item:nth-child(5) { border-left-color: var(--danger-color); }
+
+#slide4 .criterion:nth-child(1) { border-left-color: var(--warning-color); }
+#slide4 .criterion:nth-child(2) { border-left-color: var(--success-color); }
+#slide4 .criterion:nth-child(3) { border-left-color: var(--accent-color); }
+#slide4 .criterion:nth-child(4) { border-left-color: var(--primary-color); }
+
+#slide5 .process-step:nth-child(1) { border-left-color: var(--warning-color); }
+#slide5 .process-step:nth-child(2) { border-left-color: var(--success-color); }
+#slide5 .process-step:nth-child(3) { border-left-color: var(--accent-color); }
+#slide5 .process-step:nth-child(4) { border-left-color: var(--primary-color); }
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .menu-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .university {
+        font-size: 1.1rem;
+    }
+
+    .campus {
+        font-size: 1.3rem;
+    }
+
+    .slide {
+        padding: 25px 20px;
+    }
+
+    .nav-btn {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+
+    .slide-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .back-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    .content-box {
+        padding: 20px;
+    }
+
+    .definition {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .author-info p {
+        font-size: 0.95rem;
+    }
+
+    .nav-btn {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+}
