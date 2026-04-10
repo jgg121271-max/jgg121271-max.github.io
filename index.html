@@ -158,6 +158,92 @@
             transform: translateX(5px);
         }
         
+        /* 
+         * ================================================================
+         * CLASE PARA OCULTAR TARJETAS (MODIFICACIÓN APLICADA)
+         * ================================================================
+         * Esta clase oculta las tarjetas que se desean mantener en el código
+         * pero no mostrar inicialmente al usuario.
+         * 
+         * TARJETAS AFECTADAS:
+         * - Eventos Recreativos Municipales (#eventos-recreativos)
+         * - Plantillas y Formatos Oficiales (#plantillas-formatos)
+         * - Programas de Capacitación (#programas-capacitacion)
+         * 
+         * CÓMO MOSTRAR LAS TARJETAS OCULTAS:
+         * ================================================================
+         * OPCIÓN 1: Usar el botón "👁️ Mostrar proyectos ocultos"
+         * OPCIÓN 2: Eliminar la clase "card-hidden" del HTML de cada tarjeta
+         * OPCIÓN 3: Cambiar "display: none" por "display: flex" en esta clase CSS
+         * OPCIÓN 4: Ejecutar en consola: showHiddenCards()
+         * ================================================================
+         */
+        .card-hidden {
+            display: none !important;
+        }
+        
+        /* Animación para cuando se muestran las tarjetas */
+        .project-card.card-show {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Control Panel para mostrar/ocultar */
+        .control-panel {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .toggle-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+        
+        .toggle-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .toggle-info strong {
+            color: var(--primary);
+        }
+        
         /* Footer */
         footer {
             background: var(--card-bg);
@@ -189,6 +275,7 @@
             header .subtitle { font-size: 1rem; }
             .projects-grid { grid-template-columns: 1fr; }
             .container { padding: 0 10px; }
+            .toggle-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -209,10 +296,21 @@
             <p>Este portal centraliza el acceso a los diferentes proyectos, recursos y herramientas desarrolladas en los diferentes subproyectos como estudiante de Ingeniería en Informática. Selecciona un proyecto para explorar su contenido.</p>
         </section>
         
+        <!-- Panel de Control (NUEVO) -->
+        <section class="control-panel">
+            <button id="toggleHiddenCards" class="toggle-btn">
+                <span class="btn-icon">👁️</span>
+                <span class="btn-text">Mostrar proyectos ocultos</span>
+            </button>
+            <p class="toggle-info">
+                Hay <strong id="hiddenCount">3</strong> proyectos ocultos disponibles para activar cuando los necesites
+            </p>
+        </section>
+        
         <!-- Grid de Proyectos -->
         <main class="projects-grid">
             
-            <!-- Proyecto 1: Segmentación de Mercadeo -->
+            <!-- Proyecto 1: Segmentación de Mercadeo - VISIBLE ✅ -->
             <a href="segmentacion-mercadeo-unellez/" class="project-card" target="_blank">
                 <span class="icon">🎯</span>
                 <span class="badge">Académico</span>
@@ -221,7 +319,7 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 2: Gerencía de Proyecto de Software -->
+            <!-- Proyecto 2: Gerencía de Proyecto de Software - VISIBLE ✅ -->
             <a href="gerencia-proyecto-software-unellez/" class="project-card" target="_blank">
                 <span class="icon">👥</span>
                 <span class="badge">Académico</span>
@@ -230,8 +328,19 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 3: Eventos Recreativos -->
-            <a href="eventos-municipio/" class="project-card" target="_blank">
+            <!-- 
+                ================================================================
+                PROYECTO 3: Eventos Recreativos - OCULTO 🔒
+                ================================================================
+                Esta tarjeta está oculta inicialmente pero permanece en el código.
+                
+                PARA MOSTRARLA:
+                1. Remover la clase "card-hidden" del div siguiente
+                2. O usar el botón "Mostrar proyectos ocultos" en la página
+                3. O ejecutar en consola: showHiddenCards()
+                ================================================================
+            -->
+            <a href="eventos-municipio/" class="project-card card-hidden" id="eventos-recreativos" target="_blank">
                 <span class="icon">🎉</span>
                 <span class="badge">Social</span>
                 <h3>Eventos Recreativos Municipales</h3>
@@ -239,8 +348,19 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 4: Plantillas y Formatos -->
-            <a href="plantillas-formatos/" class="project-card" target="_blank">
+            <!-- 
+                ================================================================
+                PROYECTO 4: Plantillas y Formatos - OCULTO 🔒
+                ================================================================
+                Esta tarjeta está oculta inicialmente pero permanece en el código.
+                
+                PARA MOSTRARLA:
+                1. Remover la clase "card-hidden" del div siguiente
+                2. O usar el botón "Mostrar proyectos ocultos" en la página
+                3. O ejecutar en consola: showHiddenCards()
+                ================================================================
+            -->
+            <a href="plantillas-formatos/" class="project-card card-hidden" id="plantillas-formatos" target="_blank">
                 <span class="icon">📄</span>
                 <span class="badge">Recursos</span>
                 <h3>Plantillas y Formatos Oficiales</h3>
@@ -248,8 +368,19 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 5: Capacitación -->
-            <a href="capacitacion-personal/" class="project-card" target="_blank">
+            <!-- 
+                ================================================================
+                PROYECTO 5: Capacitación - OCULTO 🔒
+                ================================================================
+                Esta tarjeta está oculta inicialmente pero permanece en el código.
+                
+                PARA MOSTRARLA:
+                1. Remover la clase "card-hidden" del div siguiente
+                2. O usar el botón "Mostrar proyectos ocultos" en la página
+                3. O ejecutar en consola: showHiddenCards()
+                ================================================================
+            -->
+            <a href="capacitacion-personal/" class="project-card card-hidden" id="programas-capacitacion" target="_blank">
                 <span class="icon">🎓</span>
                 <span class="badge">Formación</span>
                 <h3>Programas de Capacitación</h3>
@@ -257,7 +388,7 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 6: Nuevo Proyecto (Plantilla) -->
+            <!-- Proyecto 6: Nuevo Proyecto (Plantilla) - VISIBLE ✅ -->
             <a href="nuevo-proyecto/" class="project-card" target="_blank" style="border-style: dashed; justify-content: center; align-items: center; text-align: center;">
                 <span class="icon" style="font-size: 3rem;">➕</span>
                 <h3 style="color: var(--text-secondary);">Agregar Nuevo Proyecto</h3>
@@ -278,5 +409,211 @@
         </footer>
         
     </div>
+
+    <!-- ========================================
+         JAVASCRIPT - FUNCIONALIDAD DE TARJETAS
+         ======================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ========================================
+            // CONFIGURACIÓN INICIAL
+            // ========================================
+            const toggleBtn = document.getElementById('toggleHiddenCards');
+            const hiddenCards = document.querySelectorAll('.card-hidden');
+            const hiddenCount = document.getElementById('hiddenCount');
+            let areHiddenVisible = false;
+            
+            // Actualizar contador de tarjetas ocultas
+            if (hiddenCount) {
+                hiddenCount.textContent = hiddenCards.length;
+            }
+            
+            // ========================================
+            // FUNCIÓN PRINCIPAL: MOSTRAR/OCULTAR TARJETAS
+            // ========================================
+            function toggleHiddenCards() {
+                hiddenCards.forEach((card, index) => {
+                    if (areHiddenVisible) {
+                        // OCULTAR: Remover animación y establecer display none
+                        card.classList.remove('card-show');
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300); // Esperar que termine la animación
+                    } else {
+                        // MOSTRAR: Establecer display flex y añadir animación
+                        card.style.display = 'flex';
+                        // Pequeño delay para que la animación se active
+                        setTimeout(() => {
+                            card.classList.add('card-show');
+                        }, 10 + (index * 100)); // Animación escalonada
+                    }
+                });
+                
+                // Alternar estado
+                areHiddenVisible = !areHiddenVisible;
+                updateButtonState();
+            }
+            
+            // ========================================
+            // ACTUALIZAR ESTADO DEL BOTÓN
+            // ========================================
+            function updateButtonState() {
+                if (!toggleBtn) return;
+                
+                const icon = toggleBtn.querySelector('.btn-icon');
+                const text = toggleBtn.querySelector('.btn-text');
+                
+                if (areHiddenVisible) {
+                    // Estado: Tarjetas visibles
+                    toggleBtn.classList.add('active');
+                    if (icon) icon.textContent = '🙈';
+                    if (text) text.textContent = 'Ocultar proyectos';
+                } else {
+                    // Estado: Tarjetas ocultas
+                    toggleBtn.classList.remove('active');
+                    if (icon) icon.textContent = '👁️';
+                    if (text) text.textContent = 'Mostrar proyectos ocultos';
+                }
+            }
+            
+            // ========================================
+            // EVENT LISTENER PARA EL BOTÓN
+            // ========================================
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', toggleHiddenCards);
+            }
+            
+            // ========================================
+            // FUNCIONES GLOBALES (para usar desde consola)
+            // ========================================
+            
+            /*
+             * ================================================================
+             * FUNCIONES PARA CONTROLAR TARJETAS DESDE LA CONSOLA
+             * ================================================================
+             * 
+             * EJEMPLOS DE USO:
+             * 
+             * // Mostrar todas las tarjetas ocultas:
+             * showHiddenCards();
+             * 
+             * // Ocultar todas las tarjetas:
+             * hideHiddenCards();
+             * 
+             * // Mostrar una tarjeta específica por ID:
+             * showCardById('eventos-recreativos');
+             * 
+             * // Ocultar una tarjeta específica por ID:
+             * hideCardById('eventos-recreativos');
+             * 
+             * // Ver estado actual:
+             * getCardsStatus();
+             * ================================================================
+             */
+            
+            // Mostrar todas las tarjetas ocultas
+            window.showHiddenCards = function() {
+                hiddenCards.forEach((card, index) => {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.classList.add('card-show');
+                    }, 10 + (index * 100));
+                });
+                areHiddenVisible = true;
+                updateButtonState();
+                console.log('✅ Tarjetas ocultas mostradas:', hiddenCards.length);
+                return hiddenCards.length;
+            };
+            
+            // Ocultar todas las tarjetas
+            window.hideHiddenCards = function() {
+                hiddenCards.forEach(card => {
+                    card.classList.remove('card-show');
+                    card.style.display = 'none';
+                });
+                areHiddenVisible = false;
+                updateButtonState();
+                console.log('✅ Tarjetas ocultas:', hiddenCards.length);
+                return hiddenCards.length;
+            };
+            
+            // Mostrar tarjeta específica por ID
+            window.showCardById = function(cardId) {
+                const card = document.getElementById(cardId);
+                if (card && card.classList.contains('card-hidden')) {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.classList.add('card-show');
+                        card.classList.remove('card-hidden');
+                    }, 10);
+                    console.log(`✅ Tarjeta mostrada: #${cardId}`);
+                    return true;
+                }
+                console.warn(`⚠️ Tarjeta no encontrada o ya visible: #${cardId}`);
+                return false;
+            };
+            
+            // Ocultar tarjeta específica por ID
+            window.hideCardById = function(cardId) {
+                const card = document.getElementById(cardId);
+                if (card) {
+                    card.classList.remove('card-show');
+                    card.style.display = 'none';
+                    card.classList.add('card-hidden');
+                    console.log(`✅ Tarjeta oculta: #${cardId}`);
+                    return true;
+                }
+                console.warn(`⚠️ Tarjeta no encontrada: #${cardId}`);
+                return false;
+            };
+            
+            // Ver estado de las tarjetas
+            window.getCardsStatus = function() {
+                const status = {
+                    total: hiddenCards.length,
+                    visible: Array.from(hiddenCards).filter(c => c.style.display !== 'none').length,
+                    hidden: Array.from(hiddenCards).filter(c => c.style.display === 'none').length,
+                    ids: Array.from(hiddenCards).map(c => c.id)
+                };
+                console.table(status);
+                return status;
+            };
+            
+            // ========================================
+            // EFECTOS ADICIONALES
+            // ========================================
+            
+            // Efecto hover mejorado en tarjetas
+            const projectCards = document.querySelectorAll('.project-card:not(.card-hidden)');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+            
+            // ========================================
+            // MENSAJES DE CONSOLA
+            // ========================================
+            console.log('%c🏠 Portal de Proyectos - Cargado', 
+                'font-size: 14px; font-weight: bold; color: #5a67d8;');
+            console.log('%c✅ Proyectos visibles: 3', 
+                'font-size: 12px; color: #48bb78;');
+            console.log('%c🔒 Proyectos ocultos: 3', 
+                'font-size: 12px; color: #ed8936;');
+            console.log('%c\n💡 Para mostrar proyectos ocultos:', 
+                'font-size: 11px; color: #718096;');
+            console.log('%c   • Usa el botón "👁️ Mostrar proyectos ocultos"', 
+                'font-size: 11px; color: #718096;');
+            console.log('%c   • O ejecuta en consola: showHiddenCards()', 
+                'font-size: 11px; color: #718096;');
+            console.log('%c\n© 2026 - José Gregorio García Rodríguez', 
+                'font-size: 10px; color: #a0aec0;');
+            
+        });
+    </script>
 </body>
 </html>
