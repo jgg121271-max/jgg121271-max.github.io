@@ -17,6 +17,15 @@
             --border-radius: 16px;
             --shadow: 0 10px 40px rgba(0,0,0,0.15);
             --shadow-hover: 0 20px 60px rgba(102, 126, 234, 0.4);
+            /* Nuevas variables para el cuadro comparativo */
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #f56565;
+            --table-header: #f7fafc;
+            --table-border: #e2e8f0;
+            --flex-high: #c6f6d5;
+            --flex-medium: #fef3c7;
+            --flex-low: #fed7d7;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,7 +40,7 @@
         }
         
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
@@ -103,6 +112,7 @@
             display: flex;
             flex-direction: column;
             min-height: 220px;
+            cursor: pointer;
         }
         
         .project-card:hover {
@@ -158,47 +168,21 @@
             transform: translateX(5px);
         }
         
-        /* 
-         * ================================================================
-         * CLASE PARA OCULTAR TARJETAS (MODIFICACIÓN APLICADA)
-         * ================================================================
-         * Esta clase oculta las tarjetas que se desean mantener en el código
-         * pero no mostrar inicialmente al usuario.
-         * 
-         * TARJETAS AFECTADAS:
-         * - Eventos Recreativos Municipales (#eventos-recreativos)
-         * - Plantillas y Formatos Oficiales (#plantillas-formatos)
-         * - Programas de Capacitación (#programas-capacitacion)
-         * 
-         * CÓMO MOSTRAR LAS TARJETAS OCULTAS:
-         * ================================================================
-         * OPCIÓN 1: Usar el botón "👁️ Mostrar proyectos ocultos"
-         * OPCIÓN 2: Eliminar la clase "card-hidden" del HTML de cada tarjeta
-         * OPCIÓN 3: Cambiar "display: none" por "display: flex" en esta clase CSS
-         * OPCIÓN 4: Ejecutar en consola: showHiddenCards()
-         * ================================================================
-         */
+        /* Tarjetas ocultas */
         .card-hidden {
             display: none !important;
         }
         
-        /* Animación para cuando se muestran las tarjetas */
         .project-card.card-show {
             animation: fadeInUp 0.5s ease;
         }
         
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Control Panel para mostrar/ocultar */
+        /* Control Panel */
         .control-panel {
             background: var(--card-bg);
             border-radius: var(--border-radius);
@@ -240,8 +224,248 @@
             margin-top: 10px;
         }
         
-        .toggle-info strong {
+        .toggle-info strong { color: var(--primary); }
+        
+        /* ========================================
+           ESTILOS PARA EL CUADRO COMPARATIVO
+           ======================================== */
+        .comparative-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+        
+        .comparative-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--table-border);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .section-header h2 {
             color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-action {
+            background: var(--table-header);
+            border: 1px solid var(--table-border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary);
+        }
+        
+        .btn-action:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-action.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-action.primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Tabla responsive */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--table-border);
+            margin-bottom: 20px;
+        }
+        
+        .comparative-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 900px;
+        }
+        
+        .comparative-table thead {
+            background: var(--table-header);
+            position: sticky;
+            top: 0;
+        }
+        
+        .comparative-table th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--table-border);
+            white-space: nowrap;
+        }
+        
+        .comparative-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--table-border);
+            vertical-align: top;
+        }
+        
+        .comparative-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .comparative-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparative-table .method-name {
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            position: sticky;
+            left: 0;
+            background: var(--card-bg);
+        }
+        
+        .comparative-table tr:hover .method-name {
+            background: #f8fafc;
+        }
+        
+        /* Badges de flexibilidad */
+        .flex-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .flex-high { background: var(--flex-high); color: #22543d; }
+        .flex-medium { background: var(--flex-medium); color: #744210; }
+        .flex-low { background: var(--flex-low); color: #742a2a; }
+        
+        /* Leyenda */
+        .legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: var(--table-header);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .legend-dot.high { background: var(--success); }
+        .legend-dot.medium { background: var(--warning); }
+        .legend-dot.low { background: var(--danger); }
+        
+        /* Modal para vista detallada */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+        
+        .modal-close:hover { color: var(--danger); }
+        
+        .modal-header {
+            border-bottom: 2px solid var(--table-border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+        
+        .modal-body dl {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 10px 20px;
+        }
+        
+        .modal-body dt {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .modal-body dd {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+        
+        .modal-body dd strong {
+            color: var(--text-primary);
         }
         
         /* Footer */
@@ -265,9 +489,7 @@
             font-weight: 500;
         }
         
-        footer a:hover {
-            text-decoration: underline;
-        }
+        footer a:hover { text-decoration: underline; }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -276,6 +498,39 @@
             .projects-grid { grid-template-columns: 1fr; }
             .container { padding: 0 10px; }
             .toggle-btn { width: 100%; justify-content: center; }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .comparative-table th,
+            .comparative-table td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .legend {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { max-width: 100%; }
+            header, footer, .control-panel, .projects-grid, .intro {
+                display: none !important;
+            }
+            .comparative-section {
+                display: block !important;
+                box-shadow: none;
+                padding: 0;
+            }
+            .table-container { border: none; }
+            .comparative-table { font-size: 0.8rem; }
+            .section-actions { display: none; }
         }
     </style>
 </head>
@@ -286,7 +541,7 @@
         <header>
             <h1>🏠 Portal de Proyectos</h1>
             <p class="subtitle">José Gregorio García Rodríguez</p>
-            <p class="subtitle">Estudiante de Ingeniería en Informática- UNELLEZ-TABAY</p>
+            <p class="subtitle">Estudiante de Ingeniería en Informática - UNELLEZ-TABAY</p>
             <span class="role">Infografías, Aplicaciones y Otros</span>
         </header>
         
@@ -296,7 +551,7 @@
             <p>Este portal centraliza el acceso a los diferentes proyectos, recursos y herramientas desarrolladas en los diferentes subproyectos como estudiante de Ingeniería en Informática. Selecciona un proyecto para explorar su contenido.</p>
         </section>
         
-        <!-- Panel de Control (NUEVO) -->
+        <!-- Panel de Control -->
         <section class="control-panel">
             <button id="toggleHiddenCards" class="toggle-btn">
                 <span class="btn-icon">👁️</span>
@@ -310,7 +565,7 @@
         <!-- Grid de Proyectos -->
         <main class="projects-grid">
             
-            <!-- Proyecto 1: Segmentación de Mercadeo - VISIBLE ✅ -->
+            <!-- Proyecto 1: Segmentación de Mercadeo -->
             <a href="segmentacion-mercadeo-unellez/" class="project-card" target="_blank">
                 <span class="icon">🎯</span>
                 <span class="badge">Académico</span>
@@ -319,7 +574,7 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 2: Gerencía de Proyecto de Software - VISIBLE ✅ -->
+            <!-- Proyecto 2: Gerencia de Proyecto de Software -->
             <a href="gerencia-proyecto-software-unellez/" class="project-card" target="_blank">
                 <span class="icon">👥</span>
                 <span class="badge">Académico</span>
@@ -328,18 +583,16 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- 
-                ================================================================
-                PROYECTO 3: Eventos Recreativos - OCULTO 🔒
-                ================================================================
-                Esta tarjeta está oculta inicialmente pero permanece en el código.
-                
-                PARA MOSTRARLA:
-                1. Remover la clase "card-hidden" del div siguiente
-                2. O usar el botón "Mostrar proyectos ocultos" en la página
-                3. O ejecutar en consola: showHiddenCards()
-                ================================================================
-            -->
+            <!-- ✅ NUEVO: Cuadro Comparativo de Metodologías -->
+            <div class="project-card" onclick="showComparativeTable()" style="cursor: pointer;">
+                <span class="icon">📊</span>
+                <span class="badge">Recurso</span>
+                <h3>🔍 Cuadro Comparativo: 7 Metodologías</h3>
+                <p>Análisis detallado de Cascada, Agile, Lean, Kanban, Scrum, Six Sigma y PRINCE2. Ideal para planificación estratégica de proyectos.</p>
+                <span class="link-text">Ver comparativo completo</span>
+            </div>
+            
+            <!-- Proyectos ocultos (manteniendo tu estructura) -->
             <a href="eventos-municipio/" class="project-card card-hidden" id="eventos-recreativos" target="_blank">
                 <span class="icon">🎉</span>
                 <span class="badge">Social</span>
@@ -348,18 +601,6 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- 
-                ================================================================
-                PROYECTO 4: Plantillas y Formatos - OCULTO 🔒
-                ================================================================
-                Esta tarjeta está oculta inicialmente pero permanece en el código.
-                
-                PARA MOSTRARLA:
-                1. Remover la clase "card-hidden" del div siguiente
-                2. O usar el botón "Mostrar proyectos ocultos" en la página
-                3. O ejecutar en consola: showHiddenCards()
-                ================================================================
-            -->
             <a href="plantillas-formatos/" class="project-card card-hidden" id="plantillas-formatos" target="_blank">
                 <span class="icon">📄</span>
                 <span class="badge">Recursos</span>
@@ -368,18 +609,6 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- 
-                ================================================================
-                PROYECTO 5: Capacitación - OCULTO 🔒
-                ================================================================
-                Esta tarjeta está oculta inicialmente pero permanece en el código.
-                
-                PARA MOSTRARLA:
-                1. Remover la clase "card-hidden" del div siguiente
-                2. O usar el botón "Mostrar proyectos ocultos" en la página
-                3. O ejecutar en consola: showHiddenCards()
-                ================================================================
-            -->
             <a href="capacitacion-personal/" class="project-card card-hidden" id="programas-capacitacion" target="_blank">
                 <span class="icon">🎓</span>
                 <span class="badge">Formación</span>
@@ -388,7 +617,7 @@
                 <span class="link-text">Acceder al proyecto</span>
             </a>
             
-            <!-- Proyecto 6: Nuevo Proyecto (Plantilla) - VISIBLE ✅ -->
+            <!-- Plantilla para nuevo proyecto -->
             <a href="nuevo-proyecto/" class="project-card" target="_blank" style="border-style: dashed; justify-content: center; align-items: center; text-align: center;">
                 <span class="icon" style="font-size: 3rem;">➕</span>
                 <h3 style="color: var(--text-secondary);">Agregar Nuevo Proyecto</h3>
@@ -397,9 +626,145 @@
             
         </main>
         
+        <!-- ========================================
+             SECCIÓN: CUADRO COMPARATIVO (NUEVO)
+             ======================================== -->
+        <section id="comparativeSection" class="comparative-section">
+            <div class="section-header">
+                <h2>📊 Comparativo de Metodologías de Gestión de Proyectos</h2>
+                <div class="section-actions">
+                    <button class="btn-action primary" onclick="printTable()">🖨️ Imprimir</button>
+                    <button class="btn-action" onclick="exportCSV()">📥 Exportar CSV</button>
+                    <button class="btn-action" onclick="closeComparativeTable()">✕ Cerrar</button>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item"><span class="legend-dot high"></span> Alta flexibilidad</div>
+                <div class="legend-item"><span class="legend-dot medium"></span> Flexibilidad media</div>
+                <div class="legend-item"><span class="legend-dot low"></span> Baja flexibilidad</div>
+            </div>
+            
+            <div class="table-container">
+                <table class="comparative-table">
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Filosofía / Enfoque</th>
+                            <th>Estructura / Fases</th>
+                            <th>Flexibilidad</th>
+                            <th>Roles Clave</th>
+                            <th>Casos de Uso Ideales</th>
+                            <th>Ventajas</th>
+                            <th>Desventajas</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="method-name">🌊 Cascada</td>
+                            <td>Secuencial, predictivo, planificación completa inicial</td>
+                            <td>Req → Diseño → Impl → Verif → Mant</td>
+                            <td><span class="flex-badge flex-low">🔴 Baja</span></td>
+                            <td>Project Manager, Analistas</td>
+                            <td>Requisitos fijos, regulados, infraestructura</td>
+                            <td>Control claro, fácil estimación, auditoría sencilla</td>
+                            <td>Rigidez, alto costo de cambios, retroalimentación tardía</td>
+                            <td><button class="btn-action" onclick="showModal('Cascada')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">🔄 Agile</td>
+                            <td>Iterativo, adaptativo, centrado en valor y colaboración</td>
+                            <td>Ciclos cortos, entregas incrementales, mejora continua</td>
+                            <td><span class="flex-badge flex-high">🟢 Alta</span></td>
+                            <td>Product Owner, Equipo multidisciplinar</td>
+                            <td>Software, entornos volátiles, innovación</td>
+                            <td>Respuesta rápida, valor temprano, alta satisfacción</td>
+                            <td>Requiere madurez, difícil escalar sin estructura</td>
+                            <td><button class="btn-action" onclick="showModal('Agile')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">⚡ Lean</td>
+                            <td>Eliminación de desperdicios, flujo continuo y valor</td>
+                            <td>Mapa de flujo, sistema Pull, perfección continua</td>
+                            <td><span class="flex-badge flex-medium">🟡 Media-Alta</span></td>
+                            <td>Líderes de proceso, equipos multifuncionales</td>
+                            <td>Manufactura, operaciones, DevOps, servicios</td>
+                            <td>Eficiencia operativa, reducción costos, cultura mejora</td>
+                            <td>Depende de cultura organizacional, difícil medir ROI inicial</td>
+                            <td><button class="btn-action" onclick="showModal('Lean')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">📋 Kanban</td>
+                            <td>Visualización, límites WIP y gestión de flujo</td>
+                            <td>Tablero con columnas, políticas explícitas, sin iteraciones</td>
+                            <td><span class="flex-badge flex-high">🟢 Alta</span></td>
+                            <td>Sin roles fijos, facilitador o Flow Manager</td>
+                            <td>Soporte, mantenimiento, demanda continua</td>
+                            <td>Flexibilidad total, mejora visual, bajo overhead</td>
+                            <td>Requiere autodisciplina, sin hitos fijos, riesgo acumulación</td>
+                            <td><button class="btn-action" onclick="showModal('Kanban')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">🏃 Scrum</td>
+                            <td>Marco ágil estructurado, entregas incrementales y empirismo</td>
+                            <td>Sprints, Backlog, Daily, Review, Retrospective</td>
+                            <td><span class="flex-badge flex-medium">🟡 Media-Alta</span></td>
+                            <td>Product Owner, Scrum Master, Dev Team</td>
+                            <td>Desarrollo producto, equipos autoorganizados</td>
+                            <td>Transparencia, ritmo predecible, adaptación estructurada</td>
+                            <td>Ceremonias burocráticas, requiere compromiso constante</td>
+                            <td><button class="btn-action" onclick="showModal('Scrum')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">📐 Six Sigma</td>
+                            <td>Reducción de variación, calidad basada en datos</td>
+                            <td>DMAIC/DMADV, análisis estadístico, control procesos</td>
+                            <td><span class="flex-badge flex-low">🔴 Baja-Media</span></td>
+                            <td>Belt (Y/G/B), Sponsor, Champion</td>
+                            <td>Manufactura, salud, finanzas, procesos críticos</td>
+                            <td>Alta calidad, reducción defectos, enfoque cuantificable</td>
+                            <td>Curva aprendizaje, pesado, menos ágil</td>
+                            <td><button class="btn-action" onclick="showModal('Six Sigma')">🔍</button></td>
+                        </tr>
+                        <tr>
+                            <td class="method-name">🏛️ PRINCE2</td>
+                            <td>Gobernanza, control por etapas y enfoque en negocio</td>
+                            <td>7 procesos, 7 temas, roles definidos, business case</td>
+                            <td><span class="flex-badge flex-medium">🟡 Media</span></td>
+                            <td>Project Board, Project Manager, Team Manager</td>
+                            <td>Proyectos corporativos, gobierno, TI regulado</td>
+                            <td>Estándar reconocido, escalable, trazabilidad completa</td>
+                            <td>Costoso, menos adaptable a cambios rápidos</td>
+                            <td><button class="btn-action" onclick="showModal('PRINCE2')">🔍</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="color: var(--text-secondary); font-size: 0.85rem; text-align: center; margin-top: 15px;">
+                💡 <strong>Tip:</strong> Haz clic en 🔍 para ver detalles completos de cada metodología. 
+                Usa 🖨️ para imprimir o 📥 para exportar los datos.
+            </p>
+        </section>
+        
+        <!-- Modal para detalles -->
+        <div id="methodModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <div class="modal-header">
+                    <h3 id="modalTitle">Nombre del Método</h3>
+                    <span id="modalFlex" class="flex-badge"></span>
+                </div>
+                <div class="modal-body">
+                    <dl id="modalDetails"></dl>
+                </div>
+            </div>
+        </div>
+        
         <!-- Footer -->
         <footer>
-            <p>© 2026 • José Gregorio García Rodríguez •Unellez-Tabay, Mérida, Venezuela</p>
+            <p>© 2026 • José Gregorio García Rodríguez • Unellez-Tabay, Mérida, Venezuela</p>
             <p style="font-size: 0.85rem;">
                 Repositorio: 
                 <a href="https://github.com/jgg121271-max/jgg121271-max.github.io" target="_blank">
@@ -411,122 +776,72 @@
     </div>
 
     <!-- ========================================
-         JAVASCRIPT - FUNCIONALIDAD DE TARJETAS
+         JAVASCRIPT - FUNCIONALIDAD COMPLETA
          ======================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
             // ========================================
-            // CONFIGURACIÓN INICIAL
+            // CONFIGURACIÓN INICIAL - TARJETAS OCULTAS
             // ========================================
             const toggleBtn = document.getElementById('toggleHiddenCards');
             const hiddenCards = document.querySelectorAll('.card-hidden');
             const hiddenCount = document.getElementById('hiddenCount');
             let areHiddenVisible = false;
             
-            // Actualizar contador de tarjetas ocultas
             if (hiddenCount) {
                 hiddenCount.textContent = hiddenCards.length;
             }
             
             // ========================================
-            // FUNCIÓN PRINCIPAL: MOSTRAR/OCULTAR TARJETAS
+            // FUNCIÓN: MOSTRAR/OCULTAR TARJETAS
             // ========================================
             function toggleHiddenCards() {
                 hiddenCards.forEach((card, index) => {
                     if (areHiddenVisible) {
-                        // OCULTAR: Remover animación y establecer display none
                         card.classList.remove('card-show');
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300); // Esperar que termine la animación
+                        setTimeout(() => { card.style.display = 'none'; }, 300);
                     } else {
-                        // MOSTRAR: Establecer display flex y añadir animación
                         card.style.display = 'flex';
-                        // Pequeño delay para que la animación se active
-                        setTimeout(() => {
-                            card.classList.add('card-show');
-                        }, 10 + (index * 100)); // Animación escalonada
+                        setTimeout(() => { card.classList.add('card-show'); }, 10 + (index * 100));
                     }
                 });
-                
-                // Alternar estado
                 areHiddenVisible = !areHiddenVisible;
                 updateButtonState();
             }
             
-            // ========================================
-            // ACTUALIZAR ESTADO DEL BOTÓN
-            // ========================================
             function updateButtonState() {
                 if (!toggleBtn) return;
-                
                 const icon = toggleBtn.querySelector('.btn-icon');
                 const text = toggleBtn.querySelector('.btn-text');
-                
                 if (areHiddenVisible) {
-                    // Estado: Tarjetas visibles
                     toggleBtn.classList.add('active');
                     if (icon) icon.textContent = '🙈';
                     if (text) text.textContent = 'Ocultar proyectos';
                 } else {
-                    // Estado: Tarjetas ocultas
                     toggleBtn.classList.remove('active');
                     if (icon) icon.textContent = '👁️';
                     if (text) text.textContent = 'Mostrar proyectos ocultos';
                 }
             }
             
-            // ========================================
-            // EVENT LISTENER PARA EL BOTÓN
-            // ========================================
             if (toggleBtn) {
                 toggleBtn.addEventListener('click', toggleHiddenCards);
             }
             
             // ========================================
-            // FUNCIONES GLOBALES (para usar desde consola)
+            // FUNCIONES GLOBALES PARA TARJETAS
             // ========================================
-            
-            /*
-             * ================================================================
-             * FUNCIONES PARA CONTROLAR TARJETAS DESDE LA CONSOLA
-             * ================================================================
-             * 
-             * EJEMPLOS DE USO:
-             * 
-             * // Mostrar todas las tarjetas ocultas:
-             * showHiddenCards();
-             * 
-             * // Ocultar todas las tarjetas:
-             * hideHiddenCards();
-             * 
-             * // Mostrar una tarjeta específica por ID:
-             * showCardById('eventos-recreativos');
-             * 
-             * // Ocultar una tarjeta específica por ID:
-             * hideCardById('eventos-recreativos');
-             * 
-             * // Ver estado actual:
-             * getCardsStatus();
-             * ================================================================
-             */
-            
-            // Mostrar todas las tarjetas ocultas
             window.showHiddenCards = function() {
                 hiddenCards.forEach((card, index) => {
                     card.style.display = 'flex';
-                    setTimeout(() => {
-                        card.classList.add('card-show');
-                    }, 10 + (index * 100));
+                    setTimeout(() => { card.classList.add('card-show'); }, 10 + (index * 100));
                 });
                 areHiddenVisible = true;
                 updateButtonState();
-                console.log('✅ Tarjetas ocultas mostradas:', hiddenCards.length);
                 return hiddenCards.length;
             };
             
-            // Ocultar todas las tarjetas
             window.hideHiddenCards = function() {
                 hiddenCards.forEach(card => {
                     card.classList.remove('card-show');
@@ -534,11 +849,9 @@
                 });
                 areHiddenVisible = false;
                 updateButtonState();
-                console.log('✅ Tarjetas ocultas:', hiddenCards.length);
                 return hiddenCards.length;
             };
             
-            // Mostrar tarjeta específica por ID
             window.showCardById = function(cardId) {
                 const card = document.getElementById(cardId);
                 if (card && card.classList.contains('card-hidden')) {
@@ -547,45 +860,241 @@
                         card.classList.add('card-show');
                         card.classList.remove('card-hidden');
                     }, 10);
-                    console.log(`✅ Tarjeta mostrada: #${cardId}`);
                     return true;
                 }
-                console.warn(`⚠️ Tarjeta no encontrada o ya visible: #${cardId}`);
                 return false;
             };
             
-            // Ocultar tarjeta específica por ID
             window.hideCardById = function(cardId) {
                 const card = document.getElementById(cardId);
                 if (card) {
                     card.classList.remove('card-show');
                     card.style.display = 'none';
                     card.classList.add('card-hidden');
-                    console.log(`✅ Tarjeta oculta: #${cardId}`);
                     return true;
                 }
-                console.warn(`⚠️ Tarjeta no encontrada: #${cardId}`);
                 return false;
             };
             
-            // Ver estado de las tarjetas
             window.getCardsStatus = function() {
-                const status = {
+                return {
                     total: hiddenCards.length,
                     visible: Array.from(hiddenCards).filter(c => c.style.display !== 'none').length,
                     hidden: Array.from(hiddenCards).filter(c => c.style.display === 'none').length,
                     ids: Array.from(hiddenCards).map(c => c.id)
                 };
-                console.table(status);
-                return status;
+            };
+            
+            // ========================================
+            // FUNCIONES DEL CUADRO COMPARATIVO
+            // ========================================
+            
+            // Datos completos de cada metodología para el modal
+            const methodologyData = {
+                'Cascada': {
+                    nombre: '🌊 Cascada (Waterfall)',
+                    flexibilidad: 'Baja',
+                    flexClass: 'flex-low',
+                    detalles: {
+                        '🎯 Filosofía': 'Enfoque secuencial y predictivo. Cada fase debe completarse antes de iniciar la siguiente.',
+                        '📐 Estructura': 'Requisitos → Diseño → Implementación → Verificación → Mantenimiento',
+                        '👥 Roles Clave': 'Project Manager, Analistas de negocio, Arquitectos de software, Desarrolladores, QA',
+                        '📄 Documentación': 'Extensa y formal. Especificaciones detalladas, aprobaciones por etapa, trazabilidad completa',
+                        '✅ Ventajas': 'Control claro del alcance, fácil estimación de tiempos y costos, ideal para auditorías, documentación completa',
+                        '❌ Desventajas': 'Rigidez ante cambios, alto costo de modificaciones tardías, retroalimentación del usuario al final, riesgo de entregar algo no esperado',
+                        '💡 Ideal para': 'Proyectos con requisitos muy estables y documentados, sistemas regulados (salud, finanzas), infraestructura crítica, contratos gubernamentales',
+                        '📊 Métricas clave': 'Cumplimiento de hitos, variación del cronograma, desviación presupuestaria'
+                    }
+                },
+                'Agile': {
+                    nombre: '🔄 Agile',
+                    flexibilidad: 'Alta',
+                    flexClass: 'flex-high',
+                    detalles: {
+                        '🎯 Filosofía': 'Manifiesto Ágil: individuos e interacciones sobre procesos, software funcionando sobre documentación, colaboración con el cliente, respuesta al cambio',
+                        '📐 Estructura': 'Iteraciones cortas (1-4 semanas), entregas incrementales, retroalimentación continua, adaptación constante',
+                        '👥 Roles Clave': 'Product Owner (voz del cliente), Equipo autoorganizado multidisciplinar, Stakeholders involucrados',
+                        '📄 Documentación': 'Mínima viable y viva: backlog priorizado, user stories, definiciones de "hecho", métricas de valor',
+                        '✅ Ventajas': 'Entrega temprana de valor, adaptación rápida a cambios, mayor satisfacción del cliente, transparencia continua, mejora iterativa',
+                        '❌ Desventajas': 'Requiere madurez y compromiso del equipo, difícil estimación inicial completa, puede ser caótico sin disciplina, escalabilidad compleja',
+                        '💡 Ideal para': 'Desarrollo de software, startups, productos digitales, entornos volátiles, proyectos con requisitos emergentes',
+                        '📊 Métricas clave': 'Velocidad del equipo, valor entregado por sprint, satisfacción del cliente, lead time'
+                    }
+                },
+                'Lean': {
+                    nombre: '⚡ Lean',
+                    flexibilidad: 'Media-Alta',
+                    flexClass: 'flex-medium',
+                    detalles: {
+                        '🎯 Filosofía': 'Maximizar valor para el cliente eliminando desperdicios (Muda). Flujo continuo y mejora kaizen.',
+                        '📐 Estructura': 'Identificar valor → Mapear flujo de valor → Crear flujo continuo → Establecer sistema Pull → Buscar perfección',
+                        '👥 Roles Clave': 'Líderes de proceso, equipos multifuncionales, todos como mejoradores continuos',
+                        '📄 Documentación': 'Visual y práctica: mapas de flujo de valor, tableros kanban, métricas de flujo (WIP, lead time, throughput)',
+                        '✅ Ventajas': 'Eficiencia operativa superior, reducción de costos y tiempos, cultura de mejora continua, enfoque en valor real',
+                        '❌ Desventajas': 'Depende fuertemente de la cultura organizacional, requiere cambio de mentalidad, difícil medir ROI inicial, puede ser mal aplicado como "recortar"',
+                        '💡 Ideal para': 'Manufactura, operaciones, DevOps, servicios, cualquier proceso repetitivo con desperdicios identificables',
+                        '📊 Métricas clave': 'Tiempo de ciclo, trabajo en progreso (WIP), throughput, tasa de defectos, OEE'
+                    }
+                },
+                'Kanban': {
+                    nombre: '📋 Kanban',
+                    flexibilidad: 'Alta',
+                    flexClass: 'flex-high',
+                    detalles: {
+                        '🎯 Filosofía': 'Visualizar el trabajo, limitar el trabajo en progreso (WIP), gestionar el flujo, mejorar colaborativamente',
+                        '📐 Estructura': 'Tablero con columnas (To Do, Doing, Done), políticas explícitas, sin iteraciones fijas, mejora continua basada en datos',
+                        '👥 Roles Clave': 'Sin roles prescritos. Facilitador o Flow Manager opcional. Todo el equipo responsable del flujo',
+                        '📄 Documentación': 'Tablero físico/digital como fuente de verdad, métricas de flujo, políticas de equipo visibles',
+                        '✅ Ventajas': 'Flexibilidad total para priorizar, mejora continua visual, bajo overhead administrativo, se adapta a cualquier tipo de trabajo',
+                        '❌ Desventajas': 'Requiere alta autodisciplina, sin hitos temporales fijos (puede generar procrastinación), riesgo de acumulación si no se respetan límites WIP',
+                        '💡 Ideal para': 'Soporte técnico, mantenimiento, equipos con demanda impredecible, operaciones continuas, complemento a otros marcos',
+                        '📊 Métricas clave': 'Lead time, cycle time, throughput, acumulación de WIP, eficiencia de flujo'
+                    }
+                },
+                'Scrum': {
+                    nombre: '🏃 Scrum',
+                    flexibilidad: 'Media-Alta',
+                    flexClass: 'flex-medium',
+                    detalles: {
+                        '🎯 Filosofía': 'Empirismo: transparencia, inspección y adaptación. Entregas incrementales de producto funcional.',
+                        '📐 Estructura': 'Sprints (1-4 semanas) + 5 eventos: Sprint, Planning, Daily, Review, Retrospective + 3 artefactos: Product Backlog, Sprint Backlog, Increment',
+                        '👥 Roles Clave': 'Product Owner (maximiza valor), Scrum Master (facilita proceso), Development Team (3-9 personas autoorganizadas)',
+                        '📄 Documentación': 'Backlog refinado, Definition of Done, burndown charts, actas de ceremonias, métricas de equipo',
+                        '✅ Ventajas': 'Ritmo predecible de entregas, transparencia total del progreso, adaptación estructurada al cambio, empoderamiento del equipo',
+                        '❌ Desventajas': 'Ceremonias pueden volverse burocráticas si no se facilitan bien, requiere compromiso constante del PO, no define prácticas técnicas (necesita XP/DevOps)',
+                        '💡 Ideal para': 'Desarrollo de producto complejo, equipos que pueden autoorganizarse, proyectos con requisitos evolutivos, organizaciones que buscan agilidad estructurada',
+                        '📊 Métricas clave': 'Velocidad, burndown, satisfacción del equipo, calidad del incremento, valor de negocio entregado'
+                    }
+                },
+                'Six Sigma': {
+                    nombre: '📐 Six Sigma',
+                    flexibilidad: 'Baja-Media',
+                    flexClass: 'flex-low',
+                    detalles: {
+                        '🎯 Filosofía': 'Reducir variación y defectos mediante métodos estadísticos. Meta: 3.4 defectos por millón de oportunidades.',
+                        '📐 Estructura': 'DMAIC (Definir, Medir, Analizar, Mejorar, Controlar) para procesos existentes; DMADV para nuevos diseños',
+                        '👥 Roles Clave': 'Champion (patrocinador), Master Black Belt, Black Belt, Green Belt, Yellow Belt, equipo de proyecto',
+                        '📄 Documentación': 'Extensa: charter de proyecto, SIPOC, análisis de causa raíz, planes de control, informes estadísticos, SPC',
+                        '✅ Ventajas': 'Calidad cuantificable y superior, reducción de costos por defectos, decisiones basadas en datos, metodología probada en miles de organizaciones',
+                        '❌ Desventajas': 'Curva de aprendizaje pronunciada, requiere entrenamiento certificado, puede ser pesado y lento, menos ágil para entornos volátiles',
+                        '💡 Ideal para': 'Manufactura de alta precisión, salud, finanzas, procesos repetitivos críticos, organizaciones con cultura de calidad basada en datos',
+                        '📊 Métricas clave': 'DPMO, nivel sigma, capacidad de proceso (Cp/Cpk), ROI del proyecto, reducción de variación'
+                    }
+                },
+                'PRINCE2': {
+                    nombre: '🏛️ PRINCE2',
+                    flexibilidad: 'Media',
+                    flexClass: 'flex-medium',
+                    detalles: {
+                        '🎯 Filosofía': 'Gestión por etapas con enfoque en el negocio. Control descentralizado y aprendizaje continuo.',
+                        '📐 Estructura': '7 procesos (Starting up, Initiating, Directing, Controlling, Managing product delivery, Managing stage boundary, Closing) + 7 temas + 7 principios',
+                        '👥 Roles Clave': 'Project Board (Executive, Senior User, Senior Supplier), Project Manager, Team Manager, Project Assurance, Change Authority',
+                        '📄 Documentación': 'Formal y estandarizada: Business Case, PID, Reports, Risk/Issue Logs, Quality Register, Lessons Report',
+                        '✅ Ventajas': 'Estándar reconocido globalmente, escalable a cualquier tamaño, trazabilidad completa, enfoque en justificación de negocio continua',
+                        '❌ Desventajas': 'Costoso en certificación e implementación, puede ser percibido como burocrático, menos adaptable a cambios muy rápidos, requiere adaptación al contexto',
+                        '💡 Ideal para': 'Proyectos corporativos grandes, sector público, TI regulado, organizaciones que requieren gobernanza fuerte y auditoría',
+                        '📊 Métricas clave': 'Cumplimiento de tolerancias (tiempo/costo/alcance), realización de beneficios, gestión de riesgos, lecciones aprendidas'
+                    }
+                }
+            };
+            
+            // Mostrar sección comparativa
+            window.showComparativeTable = function() {
+                const section = document.getElementById('comparativeSection');
+                section.classList.add('active');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Ocultar grid de proyectos temporalmente para enfocar en la tabla
+                document.querySelector('.projects-grid').style.display = 'none';
+                document.querySelector('.control-panel').style.display = 'none';
+            };
+            
+            // Cerrar sección comparativa
+            window.closeComparativeTable = function() {
+                const section = document.getElementById('comparativeSection');
+                section.classList.remove('active');
+                document.querySelector('.projects-grid').style.display = 'grid';
+                document.querySelector('.control-panel').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            
+            // Mostrar modal con detalles
+            window.showModal = function(methodName) {
+                const data = methodologyData[methodName];
+                if (!data) return;
+                
+                document.getElementById('modalTitle').textContent = data.nombre;
+                
+                const flexBadge = document.getElementById('modalFlex');
+                flexBadge.textContent = `Flexibilidad: ${data.flexibilidad}`;
+                flexBadge.className = `flex-badge ${data.flexClass}`;
+                
+                const detailsContainer = document.getElementById('modalDetails');
+                detailsContainer.innerHTML = '';
+                
+                Object.entries(data.detalles).forEach(([key, value]) => {
+                    const dt = document.createElement('dt');
+                    dt.textContent = key;
+                    const dd = document.createElement('dd');
+                    dd.innerHTML = value;
+                    detailsContainer.appendChild(dt);
+                    detailsContainer.appendChild(dd);
+                });
+                
+                document.getElementById('methodModal').classList.add('active');
+            };
+            
+            // Cerrar modal
+            window.closeModal = function() {
+                document.getElementById('methodModal').classList.remove('active');
+            };
+            
+            // Cerrar modal al hacer clic fuera
+            document.getElementById('methodModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+            
+            // Cerrar modal con tecla Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeComparativeTable();
+                }
+            });
+            
+            // Imprimir tabla
+            window.printTable = function() {
+                window.print();
+            };
+            
+            // Exportar a CSV
+            window.exportCSV = function() {
+                const headers = ['Método', 'Filosofía', 'Estructura', 'Flexibilidad', 'Roles Clave', 'Casos de Uso', 'Ventajas', 'Desventajas'];
+                const rows = [
+                    ['Cascada (Waterfall)', 'Secuencial, predictivo, planificación completa inicial', 'Req → Diseño → Impl → Verif → Mant', 'Baja', 'Project Manager, Analistas', 'Requisitos fijos, regulados, infraestructura', 'Control claro, fácil estimación, auditoría sencilla', 'Rigidez, alto costo de cambios, retroalimentación tardía'],
+                    ['Agile', 'Iterativo, adaptativo, centrado en valor y colaboración', 'Ciclos cortos, entregas incrementales, mejora continua', 'Alta', 'Product Owner, Equipo multidisciplinar', 'Software, entornos volátiles, innovación', 'Respuesta rápida, valor temprano, alta satisfacción', 'Requiere madurez, difícil escalar sin estructura'],
+                    ['Lean', 'Eliminación de desperdicios, flujo continuo y valor', 'Mapa de flujo, sistema Pull, perfección continua', 'Media-Alta', 'Líderes de proceso, equipos multifuncionales', 'Manufactura, operaciones, DevOps, servicios', 'Eficiencia operativa, reducción costos, cultura mejora', 'Depende de cultura organizacional, difícil medir ROI inicial'],
+                    ['Kanban', 'Visualización, límites WIP y gestión de flujo', 'Tablero con columnas, políticas explícitas, sin iteraciones', 'Alta', 'Sin roles fijos, facilitador o Flow Manager', 'Soporte, mantenimiento, demanda continua', 'Flexibilidad total, mejora visual, bajo overhead', 'Requiere autodisciplina, sin hitos fijos, riesgo acumulación'],
+                    ['Scrum', 'Marco ágil estructurado, entregas incrementales y empirismo', 'Sprints, Backlog, Daily, Review, Retrospective', 'Media-Alta', 'Product Owner, Scrum Master, Dev Team', 'Desarrollo producto, equipos autoorganizados', 'Transparencia, ritmo predecible, adaptación estructurada', 'Ceremonias burocráticas, requiere compromiso constante'],
+                    ['Six Sigma', 'Reducción de variación, calidad basada en datos', 'DMAIC/DMADV, análisis estadístico, control procesos', 'Baja-Media', 'Belt (Y/G/B), Sponsor, Champion', 'Manufactura, salud, finanzas, procesos críticos', 'Alta calidad, reducción defectos, enfoque cuantificable', 'Curva aprendizaje, pesado, menos ágil'],
+                    ['PRINCE2', 'Gobernanza, control por etapas y enfoque en negocio', '7 procesos, 7 temas, roles definidos, business case', 'Media', 'Project Board, Project Manager, Team Manager', 'Proyectos corporativos, gobierno, TI regulado', 'Estándar reconocido, escalable, trazabilidad completa', 'Costoso, menos adaptable a cambios rápidos']
+                ];
+                
+                let csv = headers.join(',') + '\n';
+                rows.forEach(row => {
+                    csv += row.map(field => `"${field.replace(/"/g, '""')}"`).join(',') + '\n';
+                });
+                
+                const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'comparativo-metodologias-proyectos.csv';
+                link.click();
             };
             
             // ========================================
             // EFECTOS ADICIONALES
             // ========================================
-            
-            // Efecto hover mejorado en tarjetas
-            const projectCards = document.querySelectorAll('.project-card:not(.card-hidden)');
+            const projectCards = document.querySelectorAll('.project-card:not(.card-hidden):not(#comparativeSection)');
             projectCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     this.style.zIndex = '10';
@@ -598,20 +1107,14 @@
             // ========================================
             // MENSAJES DE CONSOLA
             // ========================================
-            console.log('%c🏠 Portal de Proyectos - Cargado', 
-                'font-size: 14px; font-weight: bold; color: #5a67d8;');
-            console.log('%c✅ Proyectos visibles: 3', 
-                'font-size: 12px; color: #48bb78;');
-            console.log('%c🔒 Proyectos ocultos: 3', 
-                'font-size: 12px; color: #ed8936;');
-            console.log('%c\n💡 Para mostrar proyectos ocultos:', 
-                'font-size: 11px; color: #718096;');
-            console.log('%c   • Usa el botón "👁️ Mostrar proyectos ocultos"', 
-                'font-size: 11px; color: #718096;');
-            console.log('%c   • O ejecuta en consola: showHiddenCards()', 
-                'font-size: 11px; color: #718096;');
-            console.log('%c\n© 2026 - José Gregorio García Rodríguez', 
-                'font-size: 10px; color: #a0aec0;');
+            console.log('%c🏠 Portal de Proyectos - Cargado', 'font-size: 14px; font-weight: bold; color: #5a67d8;');
+            console.log('%c✅ Proyectos visibles: 4 (incluye Cuadro Comparativo)', 'font-size: 12px; color: #48bb78;');
+            console.log('%c🔒 Proyectos ocultos: 3', 'font-size: 12px; color: #ed8936;');
+            console.log('%c\n📊 Cuadro Comparativo disponible:', 'font-size: 12px; color: #764ba2;');
+            console.log('%c   • Haz clic en la tarjeta "🔍 Cuadro Comparativo"', 'font-size: 11px; color: #718096;');
+            console.log('%c   • Usa 🖨️ para imprimir o 📥 para exportar CSV', 'font-size: 11px; color: #718096;');
+            console.log('%c   • Haz clic en 🔍 en cada fila para ver detalles completos', 'font-size: 11px; color: #718096;');
+            console.log('%c\n© 2026 - José Gregorio García Rodríguez', 'font-size: 10px; color: #a0aec0;');
             
         });
     </script>
